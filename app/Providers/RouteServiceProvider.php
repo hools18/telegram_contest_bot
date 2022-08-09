@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Contest;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -26,8 +27,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::model('contest', Contest::class);
         $this->configureRateLimiting();
-
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')
@@ -35,6 +36,9 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::middleware('web')
+                ->group(base_path('routes/panel.php'));
         });
     }
 

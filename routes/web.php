@@ -27,3 +27,5 @@ Route::any('telegram_bot', [BotController::class, 'index'])
     ->name('telegram_bot');
 
 require __DIR__.'/auth.php';
+
+Auth::routes();

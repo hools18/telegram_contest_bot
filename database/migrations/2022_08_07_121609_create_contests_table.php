@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('contests', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->text('name')->nullable();
             $table->string('short_name')->nullable();
             $table->text('description')->nullable();
@@ -44,6 +45,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('contest_members');
         Schema::dropIfExists('contests');
     }
 };
