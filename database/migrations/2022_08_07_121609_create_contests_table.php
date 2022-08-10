@@ -29,9 +29,10 @@ return new class extends Migration
             $table->foreignId('contest_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->integer('chat_id')->nullable();
             $table->text('first_name')->nullable();
             $table->text('last_name')->nullable();
-            $table->text('username');
+            $table->text('username')->nullable();
             $table->text('phone_number')->nullable();
             $table->integer('number_member');
             $table->timestamps();

@@ -15,13 +15,8 @@ use App\Http\Controllers\Telegram\BotController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('panel.contest.index');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 
 Route::any('telegram_bot', [BotController::class, 'index'])
     ->name('telegram_bot');

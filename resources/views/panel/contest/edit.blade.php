@@ -12,10 +12,19 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-
+            @if (\Session::has('success'))
+                <div class="alert alert-success">
+                    <ul>
+                        <li>{!! \Session::get('success') !!}</li>
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-6">
                     <div class="card card-primary">
+                        <div class="card-header">
+                            <a class="btn btn-primary" href="{{ route('panel.contest.members.index', $contest) }}">Список участников</a>
+                        </div>
                         <form action="{{ route('panel.contest.update', $contest) }}" method="POST"
                               enctype="multipart/form-data">
                             @csrf
@@ -67,8 +76,9 @@
                                     @endif
                                 </div>
                                 @if($contest->getFirstMediaUrl('image'))
-                                    <img src="{{ $contest->getFirstMediaUrl('image') }}" alt="" style="width: 200px; height: auto">
-                                    <button>Удалить</button>
+                                    <img src="{{ $contest->getFirstMediaUrl('image', 'thumb_1200') }}" class="contestImageContainer" alt="" style="width: 200px; height: auto">
+                                    <button type="button" class="btn btn-danger removeImage">Удалить</button>
+                                    <input type="file" class="contest_image" style="display: none">
                                 @else
                                     <div class="form-group">
                                         <label for="exampleInputFile">Изображение конкурса</label>
@@ -110,5 +120,63 @@
             locale: moment.locale('ru'),
             format: 'DD.MM.YYYY HH:mm',
             icons: { time: 'far fa-clock' } });
+
+        setTimeout(function (){
+            $('.alert').hide();
+        }, 2000);
+        $('.removeImage').click(function (){
+            $.ajax({
+                data: {
+                    _method: 'delete'
+                },
+                headers: {
+                    'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+                },
+                type: 'POST',
+                url: '{{ route('panel.contest.deleteImage', $contest) }}',
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (response) {
+
+                }
+            });
+        });
+
+        $('.contestImageContainer').click(function (){
+            $('.contest_image').click();
+        });
+        $('.contest_image').change(function (){
+            var $file_type = this.value.split('.').pop();
+            if ($file_type !== "jpeg" && $file_type !== "jpg" && $file_type !== "png" && $file_type !== "PNG" && $file_type !== "JPEG" && $file_type !== "JPG") {
+                toastr.error("Допускаются файлы только jpeg, jpg, png");
+                return;
+            }
+            if ($(this).prop('files')[0].size > 9900000) {
+                toastr.error('Размер загружаемого файла ' + value.name + ' превышает 10МБ');
+                return false;
+            }
+            var post_data = new FormData;
+            post_data.append('image', $(this).prop('files')[0]);
+            post_data.append('_method', 'POST');
+            $.ajax({
+                data: post_data,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+                },
+                type: 'POST',
+                url: '{{ route('panel.contest.updateImage', $contest) }}',
+                success: function (response) {
+                    $('.contestImageContainer').attr('src', response['image']);
+                },
+                error: function (response) {
+
+                }
+            });
+        })
     </script>
 @endsection

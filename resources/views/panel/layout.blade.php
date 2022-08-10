@@ -34,7 +34,7 @@
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-        <a href="{{ route('panel.dashboard.index') }}" class="brand-link">
+        <a href="{{ route('panel.contest.index') }}" class="brand-link">
             <span class="brand-text font-weight-light">TCB</span>
         </a>
 
@@ -42,14 +42,14 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    <li class="nav-item">
-                        <a href="{{ route('panel.dashboard.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Главная
-                            </p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{ route('panel.dashboard.index') }}" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-tachometer-alt"></i>--}}
+{{--                            <p>--}}
+{{--                                Главная--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="nav-item">
                         <a href="{{ route('panel.contest.index') }}" class="nav-link">
                             <i class="nav-icon far fa-plus-square"></i>
