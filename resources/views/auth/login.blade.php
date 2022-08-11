@@ -8,6 +8,8 @@
                 <div class="card-header">{{ __('Вход') }}</div>
 
                 <div class="card-body">
+                    <p>Тестовая платформа настройки бота розыгрышей</p>
+                    <p>Подробнее на <a href="https://github.com/hools18/telegram_contest_bot" target="_blank">Github</a></p>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
