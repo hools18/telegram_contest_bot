@@ -52,8 +52,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Начало конкурса:</label>
-                                    <div class="input-group date" id="startDate" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" name="start_date" data-target="#startDate" value="{{ !empty($contest->start_date) ? $contest->start_date : old('start_date') }}">
+                                    <div class="input-group date" id="startDate" data-target-input="nearest" style="width: 200px">
+                                        <input type="text" class="form-control datetimepicker-input" name="start_date" data-target="#startDate" value="{{ !empty($contest->start_date) ? $contest->start_date : old('start_date') }}" >
                                         <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -65,8 +65,8 @@
 
                                 <div class="form-group">
                                     <label>Завершение конкурса:</label>
-                                    <div class="input-group date" id="endDate" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" name="end_date" data-target="#endDate" value="{{ !empty($contest->end_date) ? $contest->end_date : old('end_date') }}">
+                                    <div class="input-group date" id="endDate" data-target-input="nearest" style="width: 200px">
+                                        <input type="text" class="form-control datetimepicker-input" name="end_date" data-target="#endDate" value="{{ !empty($contest->end_date) ? $contest->end_date : old('end_date') }}" >
                                         <div class="input-group-append" data-target="#endDate" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -111,6 +111,8 @@
 
 @section('js')
     @parent
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.js"></script>
+    <script> autosize(document.querySelector('textarea'));</script>
     <script>
         $('#startDate').datetimepicker({
             locale: moment.locale('ru'),
